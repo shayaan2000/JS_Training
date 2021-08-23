@@ -1,9 +1,5 @@
 "use strict";
 
-// Data needed for a later exercise
-const flights =
-  "_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30";
-
 // Data needed for first part of the section
 const restaurant = {
   name: "Classico Italiano",
@@ -368,104 +364,6 @@ for (const [day, { open, close }] of entries) {
   console.log(`On ${day}, we open at ${open}, and close at ${close}`);
 }
 
-//=====================Coding Challenge 1=======================
-console.log("\n\n109. Coding Challenge 1");
-
-const game = {
-  team1: "Bayern Munich",
-  team2: "Borrussia Dortmund",
-  players: [
-    [
-      "Neuer",
-      "Pavard",
-      "Martinez",
-      "Alaba",
-      "Davies",
-      "Kimmich",
-      "Goretzka",
-      "Coman",
-      "Muller",
-      "Gnarby",
-      "Lewandowski",
-    ],
-    [
-      "Burki",
-      "Schulz",
-      "Hummels",
-      "Akanji",
-      "Hakimi",
-      "Weigl",
-      "Witsel",
-      "Hazard",
-      "Brandt",
-      "Sancho",
-      "Gotze",
-    ],
-  ],
-  score: "4:0",
-  scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels"],
-  date: "Nov 9th, 2037",
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
-
-//1
-const [players1, players2] = game.players;
-console.log(players1, players2);
-
-//2
-const [gk, ...fieldPlayers] = players1;
-console.log(gk, fieldPlayers);
-
-//3
-const allPlayers = [...players1, ...players2];
-console.log(allPlayers);
-
-//4
-const players1Final = [...players1, "Thiago", "Coutinho", "Perisic"];
-
-//5
-const {
-  odds: { team1, x: draw, team2 },
-} = game;
-
-//6
-const printGoals = function (...players) {
-  console.log(players);
-  console.log(players.length + " goals scored");
-};
-printGoals(...game.scored);
-
-//7
-team1 < team2 && console.log("team 1 is more likely to win");
-team1 > team2 && console.log("team 2 is more likely to win");
-
-//=====================Coding Challenge 2=======================
-//continued from challenge 1
-console.log("\n\n114. Coding Challenge 2");
-
-//1
-for (const [i, scorer] of game.scored.entries()) {
-  console.log(`Goal ${i + 1}: ${scorer}`);
-}
-
-//2
-let avgOdd = 0;
-for (const odd of Object.values(game.odds)) {
-  avgOdd += odd;
-  console.log(odd);
-}
-avgOdd /= Object.values(game.odds).length;
-console.log(avgOdd);
-
-//3
-for (const [team, odd] of Object.entries(game.odds)) {
-  team !== "x" && console.log(`Odd of victory for ${game[team]}: ${odd}`);
-}
-
 //=====================Sets=======================
 console.log("\n\n115. Sets");
 
@@ -591,3 +489,343 @@ console.log(question.get("correct") === answer); //true
 console.log([...question]); //2D array
 console.log([...question.keys()]);
 console.log([...question.values()]);
+
+//=====================Coding Challenge 1=======================
+console.log("\n\n109. Coding Challenge 1");
+
+const game = {
+  team1: "Bayern Munich",
+  team2: "Borrussia Dortmund",
+  players: [
+    [
+      "Neuer",
+      "Pavard",
+      "Martinez",
+      "Alaba",
+      "Davies",
+      "Kimmich",
+      "Goretzka",
+      "Coman",
+      "Muller",
+      "Gnarby",
+      "Lewandowski",
+    ],
+    [
+      "Burki",
+      "Schulz",
+      "Hummels",
+      "Akanji",
+      "Hakimi",
+      "Weigl",
+      "Witsel",
+      "Hazard",
+      "Brandt",
+      "Sancho",
+      "Gotze",
+    ],
+  ],
+  score: "4:0",
+  scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels"],
+  date: "Nov 9th, 2037",
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+//1
+const [players1, players2] = game.players;
+console.log(players1, players2);
+
+//2
+const [gk, ...fieldPlayers] = players1;
+console.log(gk, fieldPlayers);
+
+//3
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+//4
+const players1Final = [...players1, "Thiago", "Coutinho", "Perisic"];
+
+//5
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+
+//6
+const printGoals = function (...players) {
+  console.log(players);
+  console.log(players.length + " goals scored");
+};
+printGoals(...game.scored);
+
+//7
+team1 < team2 && console.log("team 1 is more likely to win");
+team1 > team2 && console.log("team 2 is more likely to win");
+
+//=====================Coding Challenge 2=======================
+//continued from challenge 1
+console.log("\n\n114. Coding Challenge 2");
+
+//1
+for (const [i, scorer] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${scorer}`);
+}
+
+//2
+let avgOdd = 0;
+for (const odd of Object.values(game.odds)) {
+  avgOdd += odd;
+  console.log(odd);
+}
+avgOdd /= Object.values(game.odds).length;
+console.log(avgOdd);
+
+//3
+for (const [team, odd] of Object.entries(game.odds)) {
+  team !== "x" && console.log(`Odds of victory for ${game[team]}: ${odd}`);
+}
+
+//=====================Coding Challenge 3=======================
+//continued from challenge 2
+console.log("\n\n114. Coding Challenge 3");
+
+const gameEvents = new Map([
+  [17, "⚽ GOAL"],
+  [36, "🔁 Substitution"],
+  [47, "⚽ GOAL"],
+  [61, "🔁 Substitution"],
+  [64, "🔶 Yellow card"],
+  [69, "🔴 Red card"],
+  [70, "🔁 Substitution"],
+  [72, "🔁 Substitution"],
+  [76, "⚽ GOAL"],
+  [80, "⚽ GOAL"],
+  [92, "🔶 Yellow card"],
+]);
+
+//1
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+
+//2
+gameEvents.delete(64);
+console.log(gameEvents);
+
+//3
+console.log(
+  `An event happened, on average, every ${90 / gameEvents.size} minutes`
+);
+
+//4
+for (const [t, e] of gameEvents.entries()) {
+  const half = t <= 45 ? "[FIRST HALF]" : "[SECOND HALF]";
+  console.log(`${half} ${t}: e`);
+}
+
+//=====================Working with Strings- Part 1=======================
+console.log("\n\n120. Working with Strings- Part 1");
+
+const airline = "Tap Air Portugal";
+const plane = "A320";
+
+//accessing characters
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log(plane[3]);
+console.log("B749"[0]);
+console.log("\n");
+
+console.log(airline);
+console.log("length:", airline.length);
+
+//indexOf()
+console.log("indexOf(r):", airline.indexOf("r")); //6
+console.log("lastIndexOf(r):", airline.lastIndexOf("r")); //10
+console.log("indexOf(Portugal):", airline.indexOf("Portugal")); //case sensitive, -1 if not found
+
+//slice()
+console.log("slice(4):", airline.slice(4));
+console.log("slice(4,7):", airline.slice(4, 7)); //7 - 4 = 3 length (before 7)
+console.log(airline.slice(0, airline.indexOf(" ")));
+console.log(airline.slice(airline.lastIndexOf(" ") + 1));
+console.log(airline.slice(-2)); //last 2
+console.log(airline.slice(1, -1)); //starts at 1, excludes last 1
+
+//trying it out
+//column E and B are middle seats
+const checkMiddleSeat = function (seat) {
+  const s = seat.slice(-1);
+  if (s === "E" || s === "B") {
+    console.log("You got the middle seat");
+  } else {
+    console.log("You got lucky");
+  }
+};
+checkMiddleSeat("11B");
+checkMiddleSeat("23C");
+checkMiddleSeat("3E");
+
+//=====================Working with Strings- Part 2=======================
+console.log("\n\n121. Working with Strings- Part 2");
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+//fixing capitalization
+const passenger = "jOnAs";
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+
+console.log(passenger, passengerCorrect);
+
+//fixing email
+const email = "hello@jonas.io";
+const loginEmail = "  Hello@Jonas.io \n";
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim(); //removes space
+console.log(trimmedEmail);
+
+//OR
+console.log(loginEmail.toLowerCase().trim());
+
+//Repacing
+const priceGB = "288,97P";
+const princeUS = priceGB.replace("P", "$").replace(",", ".");
+console.log(princeUS);
+
+//regex
+const announcement =
+  "All passengers come to boarding door 23. Boarding door 23!";
+
+console.log(announcement.replace("door", "gate")); //only replaces first occurance of door
+//we need regex to remove multiple occurences
+console.log(announcement.replace(/door/g, "gate"));
+
+//booleans
+const airplane = "Airbus A320neo";
+console.log(airplane.includes("A320"));
+console.log(airplane.includes("Boeing"));
+console.log(airplane.startsWith("Airb"));
+if (airplane.startsWith("Airbus") && airplane.endsWith("neo")) {
+  console.log("is Airbus and new");
+}
+
+//=====================Working with Strings- Part 3=======================
+console.log("\n\n122. Working with Strings- Part 3");
+
+//split
+const niceString = "a+very+nice+string";
+console.log(niceString.split("+"));
+
+const [firstName, lastName] = "Shayaan Farooq".split(" ");
+
+const newName = ["Mr", firstName, lastName.toUpperCase()].join(" ");
+
+const capitalizeName = function (listOfNames) {
+  const names = listOfNames.split(" "); //separating each word into array
+  let finalName = "";
+  for (const name of names) {
+    finalName +=
+      name.slice(0, 1).toUpperCase() + name.toLowerCase().slice(1) + " ";
+  }
+  return finalName;
+};
+
+console.log(capitalizeName("sHayaAn FaRooQ aHmEd nAsiR"));
+
+//Padding
+const msg = "Go to gate 23!";
+console.log(msg.padStart(25, "+"));
+console.log(msg.padEnd(25, "SHAY"));
+
+//real example
+const maskCreditCard = function (number) {
+  const strNum = number + "";
+  return strNum.slice(-3).padStart(16, "*");
+};
+
+console.log(maskCreditCard(1234222133354343));
+
+//Repeat
+const msg2 = "Bad weather.. All Departures Delayed... ";
+console.log(msg2.repeat(5));
+
+//=====================Coding Challenge 4=======================
+console.log("\n\n123. Coding Challenge 4");
+
+//converting underscore_formate to camelCase
+const convertToCamelCase = function (textInput) {
+  const variables = textInput.split("\n");
+  const camelCaseVariables = [];
+  console.log(variables);
+  for (const [i, v] of variables.entries()) {
+    //trimming
+    let tempStr = v.trim();
+
+    //lower case
+    tempStr = tempStr.toLowerCase();
+
+    //spliting into ["first", "name"]
+    tempStr = tempStr.split("_");
+
+    //converting into "firstName"
+    tempStr =
+      tempStr[0] + tempStr[1].slice(0, 1).toUpperCase() + tempStr[1].slice(1);
+
+    //padding
+    tempStr = tempStr.padEnd(30, " ");
+
+    //repeating emojies at end according to line number
+    tempStr += "+".repeat(i + 1);
+
+    //pushing in an array
+    camelCaseVariables.push(tempStr);
+  }
+
+  //joining on separate lines
+  console.log(camelCaseVariables.join("\n"));
+};
+
+const textAreaInput =
+  "underscore_case\n   first_name   \nSome_Variable\n   calculate_AGE\ndelayed_departure";
+
+convertToCamelCase(textAreaInput);
+
+//=====================String Excercise=======================
+console.log("\n\n124. String Exercise");
+//formatting into readable output
+
+const flights =
+  "_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30";
+
+const allFlights = flights.split("+");
+console.log(allFlights);
+
+for (const f of allFlights) {
+  let flightStatus, flightDeparture, flightArrival, flightTime;
+
+  [flightStatus, flightDeparture, flightArrival, flightTime] = f.split(";");
+  //status
+  flightStatus = flightStatus.slice(1).split("_").join(" ");
+  flightStatus = flightStatus.startsWith("Delayed")
+    ? "!!!" + flightStatus
+    : flightStatus;
+
+  //departure
+  flightDeparture = flightDeparture.slice(0, 3).toUpperCase();
+
+  //arrival
+  flightArrival = flightArrival.slice(0, 3).toUpperCase();
+
+  //time
+  flightTime = flightTime.replace(":", "h");
+
+  console.log(
+    `${flightStatus} from ${flightDeparture} to ${flightArrival} (${flightTime})`
+  );
+}
