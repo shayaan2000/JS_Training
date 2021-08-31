@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  color: #fafafa;
+}
+
+.app-container {
+  background: #1eb4f5;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-container {
+  background: #374b57;
+  height: 63rem;
+  width: 93rem;
+  border-radius: 0.5rem;
+  padding: 3.5rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.header-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.header-section .form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+
+.header-section .form-container h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.header-section .form-container p {
+  font-size: 1.2rem;
+  color: #1eb4f5;
+  margin-bottom: 2rem;
+}
+
+.header-section .form-container .form-add-input {
+  font-size: 1.4rem;
+  margin: 0rem 1rem 1rem 0;
+  padding: 1rem 0 1rem 1rem;
+  width: 35rem;
+  background: #fafafa;
+  border: none;
+  border-radius: 2px;
+}
+
+.header-section .form-container .form-submit-btn {
+  background: #1eb4f5;
+  color: #fafafa;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 3px;
+}
+
+.header-section .form-container .form-submit-btn:hover {
+  cursor: pointer;
+}
+
+.header-section nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.header-section nav .nav-item {
+  font-size: 1.6rem;
+  list-style-type: none;
+  padding-left: 2rem;
+  color: #abafb3;
+}
+
+.header-section nav .nav-item:hover {
+  cursor: pointer;
+}
+
+.header-section nav .active {
+  color: #fafafa;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: #abafb3;
+  margin: 3rem 0;
+}
+
+.tasks-section {
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+.tasks-section ul li {
+  list-style-type: none;
+}
+
+.tasks-section #task-list {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 40rem;
+}
+
+.tasks-section .task-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.tasks-section .task-container .complete {
+  text-decoration: line-through;
+}
+
+.tasks-section .task-container .incomplete {
+  text-decoration: none;
+}
+
+.tasks-section .task-container .task-revert {
+  color: #abafb3;
+}
+
+.tasks-section .task-container .task-revert:hover {
+  color: #008000;
+  cursor: pointer;
+}
+
+.tasks-section .task-container .task-finish {
+  color: #abafb3;
+}
+
+.tasks-section .task-container .task-finish:hover {
+  color: #008000;
+  cursor: pointer;
+}
+
+.tasks-section .task-container .task-delete {
+  color: #abafb3;
+}
+
+.tasks-section .task-container .task-delete:hover {
+  color: #ff0000;
+  cursor: pointer;
+}
+
+.tasks-section p i {
+  margin-right: 1rem;
+}
+
+@media (max-width: 460px) {
+  html,
+  body {
+    font-size: 60%;
+  }
+  .form-add-input {
+    width: 60%;
+  }
+}
+
+@media (max-width: 430px) {
+  html,
+  body {
+    font-size: 40%;
+  }
+  .form-add-input {
+    width: 50%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 395px) {
+  html,
+  body {
+    font-size: 40%;
+  }
+  .form-add-input {
+    width: 30%;
+    margin-right: 0;
+  }
+  #task-list {
+    height: 30rem;
+  }
+}
+/*# sourceMappingURL=main.css.map */
