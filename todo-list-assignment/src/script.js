@@ -3,14 +3,14 @@
 // Selecting elements
 const navIncomplete = document.querySelector("#nav-incomplete");
 const navComplete = document.querySelector("#nav-complete");
-const taskListContainer= document.querySelector("#task-list")
-const dateEl= document.querySelector(".date");
-const numberOfActiveEl= document.querySelector(".num-active");
-const addTaskForm= document.querySelector(".add-task-form");
-const mainContainer= document.querySelector(".main-container");
-let deleteIcons= document.querySelectorAll(".task-delete");
-let finishIcons= document.querySelectorAll(".task-finish");
-let revertIcons= document.querySelectorAll(".task-revert");
+const taskListContainer = document.querySelector("#task-list")
+const dateEl = document.querySelector(".date");
+const numberOfActiveEl = document.querySelector(".num-active");
+const addTaskForm = document.querySelector(".add-task-form");
+const mainContainer = document.querySelector(".main-container");
+const deleteIcons = document.getElementsByClassName("task-delete");
+const finishIcons = document.getElementsByClassName("task-finish");
+const revertIcons = document.getElementsByClassName("task-revert");
 
 // Date settings
 const dateOptions = {
@@ -20,163 +20,146 @@ const dateOptions = {
 };
 
 // Data
-let listOfCompleteTasks = []//[{title: "Hello 1", date:"today", completed: true}, {title: "Hello 2", date:"today", completed: true},{title: "Hello 3", date:"today", completed: true},];
-let listOfIncompleteTasks = []//[{title: "Hello 1", date:"today", completed: false}, {title: "Hello 2", date:"today", completed: false},{title: "Hello 3", date:"today", completed: false},]
+let listOfTasks = [];
+let currentPage = 0;
+let idCount = 0;
 
 // Creates the HTML for a given task
-const generateTaskMarkup= function(task, id){
-  console.log(id);
-  const completed= task.completed;
+const generateTaskMarkup = function (task, id) {
+  const completed = task.completed;
   return `
   <li class="task" data-id="${id}">
     <div class="task-container">
-      <p class="task-title"><i class="icon-${completed ? "refresh" : "check"} icon-large task-${completed ? "revert" : "finish"}"></i>
+      <p class="task-title"><i class="icon-${completed ? "undo" : "check"} icon-large task-${completed ? "revert" : "finish"}"></i>
         <span class="${completed ? "complete" : "incomplete"}">${task.title}</span>
-      </p>
+      </p>  
       <i class="icon-trash icon-large task-delete"></i>
-    </div>
+    </div>  
     <div class=divider></div>
-  </li>
-`
+  </li>  
+  `
 }
 
-// handler for showing incomplete tasks
-const displayIncompleteTasks=()=>{
-  navComplete.classList.remove("active")
-  navIncomplete.classList.add("active")
 
+const selectTab = (completedFlag = false) => {
+  [navComplete, navIncomplete].forEach((navItem) => navItem.classList.remove("active"));
+  completedFlag ? navComplete.classList.add("active") : navIncomplete.classList.add("active")
+  completedFlag ? currentPage = 1 : currentPage = 0;
+  displayTasks(completedFlag);
+}
+
+// Display Tasks
+const displayTasks = (completedFlag = false) => {
   // rendering
-  taskListContainer.innerHTML='';
-  const taskListHTML = listOfIncompleteTasks.map((incompleteTask, i)=> generateTaskMarkup(incompleteTask, i)).join('');
-  taskListContainer.innerHTML= taskListHTML
+  taskListContainer.innerHTML = '';
+  const taskListHTML = listOfTasks.map((task, i) => {
+
+    // only returning if completed status matches required
+    if (task.completed === completedFlag) {
+      return (generateTaskMarkup(task, task.id))
+    }
+  }).join('');
+  taskListContainer.innerHTML = taskListHTML
 
   attachEventListeners();
-} 
+  updateActiveTaskHeading();
+}
 
-// handler for showing complete tasks
-const displayCompleteTasks=()=>{
-  navIncomplete.classList.remove("active");
-  navComplete.classList.add("active");
+// attach event listeners on new elements
+const attachEventListeners = function () {
+  for (const icon of deleteIcons) {
+    icon.addEventListener("click", handleDelete)
+  }
 
-  // rendering
-  taskListContainer.innerHTML='';
-  const taskListHTML = listOfCompleteTasks.map((completeTask, i)=> generateTaskMarkup(completeTask, i)).join('');
-  taskListContainer.innerHTML= taskListHTML
+  for (const icon of finishIcons) {
+    icon.addEventListener("click", handleChangeInStatus)
+  }
 
-  attachEventListeners();
-} 
+  for (const icon of revertIcons) {
+    icon.addEventListener("click", handleChangeInStatus)
+  }
+}
 
-// deleting a task
-const handleDelete= (e)=>{
-  const elementToBeRemoved= e.target.closest(".task");
-  
+const handleDelete = (e) => {
+  const elementToBeRemoved = e.target.closest(".task");
+
   if (!elementToBeRemoved) return;
-  const isCompleted= elementToBeRemoved.querySelector(".complete");
-  isCompleted ? listOfCompleteTasks.splice(elementToBeRemoved.dataset.id, 1) : listOfIncompleteTasks.splice(elementToBeRemoved.dataset.id, 1)
+
+  console.log(elementToBeRemoved.dataset.id);
+  console.log(elementToBeRemoved);
+
+  const taskId = elementToBeRemoved.dataset.id;
+  const taskPos = listOfTasks.map((task) => task.id).indexOf(+taskId);
+
+  listOfTasks.splice(taskPos, 1);
   elementToBeRemoved.remove();
 
   updateActiveTaskHeading();
-
   persistTasks();
 }
 
 // finishing a task 
-const handleFinish =(e)=>{
+const handleChangeInStatus = (e) => {
   const elementToBeShifted = e.target.closest(".task")
 
-  if(!elementToBeShifted) return;
-  const [task]= listOfIncompleteTasks.splice(elementToBeShifted.dataset.id, 1)
-  task.completed=true;
-  listOfCompleteTasks.push(task)
-  elementToBeShifted.remove(); //dom removal
+  if (!elementToBeShifted) return;
+  const taskId = elementToBeShifted.dataset.id;
+  const taskPos = listOfTasks.map((task) => task.id).indexOf(+taskId);
+  listOfTasks[taskPos].completed = !listOfTasks[taskPos].completed;
+  elementToBeShifted.remove();
 
   updateActiveTaskHeading();
-
   persistTasks();
 }
 
-// reverting a task to incomplete
-const handleRevert = (e)=>{
-  const elementToBeShifted = e.target.closest(".task")
-  if(!elementToBeShifted) return;
-  const [task]= listOfCompleteTasks.splice(elementToBeShifted.dataset.id, 1)
-  task.completed=false;
-  listOfIncompleteTasks.push(task)
-  elementToBeShifted.remove(); //dom removal
-
-  updateActiveTaskHeading();
-
-  persistTasks();
-}
-
-// adding a task
-const handleAddFormSubmit= (e)=>{
+const handleAddFormSubmit = (e) => {
   e.preventDefault();
-  const taskTitleInput=document.querySelector("#task-title-input");
-  const taskTitle= taskTitleInput.value;
-  taskTitleInput.value=""; 
-  const newTask= {title: taskTitle, date: new Date(), completed:false}
-  listOfIncompleteTasks.push(newTask);
+  const taskTitleInput = document.querySelector("#task-title-input");
+  const taskTitle = taskTitleInput.value;
+  taskTitleInput.value = "";
+  const newTask = { id: idCount, title: taskTitle, date: new Date(), completed: false }
+  idCount++;
+  listOfTasks.push(newTask);
+  console.log(listOfTasks);
+  selectTab(false);
 
-  displayIncompleteTasks();
   updateActiveTaskHeading();
   persistTasks();
 }
 
-// setting "3 Active Tasks"
-const updateActiveTaskHeading = ()=>{
-  numberOfActiveEl.textContent=`${listOfIncompleteTasks.length} active tasks`
+
+const persistTasks = () => {
+  localStorage.setItem("tasks", JSON.stringify(listOfTasks));
+  localStorage.setItem("id-count", JSON.stringify(idCount));
 }
 
-// attach event listeners on new elements
-const attachEventListeners = function()
-{
-  deleteIcons= document.getElementsByClassName("task-delete");
-  for(const icon of deleteIcons){
-    icon.addEventListener("click", handleDelete)
-  }
-
-  finishIcons= document.getElementsByClassName("task-finish");
-  for(const icon of finishIcons){
-    icon.addEventListener("click", handleFinish)
-  }
-
-  revertIcons= document.getElementsByClassName("task-revert");
-  for(const icon of revertIcons){
-    icon.addEventListener("click", handleRevert)
-  }
-
-}
-
-// local storage
-const persistTasks= ()=> {
-  localStorage.setItem("tasks-complete", JSON.stringify(listOfCompleteTasks));
-  localStorage.setItem("tasks-incomplete", JSON.stringify(listOfIncompleteTasks));
-}
-
-// Event Listeners
-navIncomplete.addEventListener("click", displayIncompleteTasks);
-navComplete.addEventListener("click", displayCompleteTasks);
+// // Event Listeners
+navComplete.addEventListener("click", (e) => selectTab(true));
+navIncomplete.addEventListener("click", (e) => selectTab(false));
 addTaskForm.addEventListener("submit", handleAddFormSubmit)
 
-
-
+// setting "x Active Tasks"
+const updateActiveTaskHeading = () => {
+  numberOfActiveEl.textContent = `${listOfTasks.filter((task) => task.completed === false).length} active tasks`
+}
 
 // initialization
 const init = function () {
-  
-  // retrieving from local storage
-  const storageTasksComplete = localStorage.getItem("tasks-complete");
-  if (storageTasksComplete) listOfCompleteTasks = JSON.parse(storageTasksComplete);
-  
-  const storageTasksIncomplete = localStorage.getItem("tasks-incomplete");
-  if (storageTasksIncomplete) listOfIncompleteTasks = JSON.parse(storageTasksIncomplete);
 
-  // setting date
+  // retrieving from local storage
+  const storageTasks = localStorage.getItem("tasks");
+  if (storageTasks) listOfTasks = JSON.parse(storageTasks);
+
+  const storageID = localStorage.getItem("id-count");
+  if (storageID) idCount = JSON.parse(storageID);
+
+  // setting data
   dateEl.textContent = (new Intl.DateTimeFormat(navigator.loacation, dateOptions).format(new Date()));
-  
-  // display initial tasks
-  displayIncompleteTasks();
+  selectTab(false);
+  updateActiveTaskHeading();
+
 };
 
 init();
+
+

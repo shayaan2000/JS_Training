@@ -54,6 +54,7 @@ body {
   border-radius: 0.5rem;
   padding: 3.5rem;
   box-sizing: border-box;
+  box-shadow: 2px 2px 10px getColor(_black);
 }
 
 .header-section {
@@ -92,11 +93,12 @@ body {
     .form-submit-btn {
       background: getColor(_primary);
       color: getColor(_white);
-      padding: 1rem;
+      padding: 1rem 2rem;
       margin-bottom: 1rem;
       border: none;
       border-radius: 3px;
 
+      
       &:hover {
         cursor: pointer;
       }
@@ -130,6 +132,7 @@ body {
   width: 100%;
   background: getColor(_grey-light);
   margin: 3rem 0;
+  
 }
 
 .tasks-section {
@@ -143,8 +146,7 @@ body {
 
   #task-list {
     overflow: hidden;
-    overflow-y: scroll;
-    max-height: 40rem;
+    overflow-y: auto;
   }
 
   // for one single task row
@@ -185,42 +187,82 @@ body {
   }
 }
 
+
+
 // Media queries
-@media (max-width: 460px) {
+@media (min-width: 800px) {
+  
+  #task-list {
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 40rem;
+  }
+}
+
+@media (max-width: 800px) {
   html,
   body {
     font-size: 60%;
   }
 
-  .form-add-input {
-    width: 60%;
+  //fixing
+  .main-container{
+    height: 100%;
+    width: 100%;
+  }
+
+  .header-section{
+    flex-direction: column;
+  }
+
+  nav{
+    margin-top: 2rem;
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 460px) {
   html,
   body {
-    font-size: 40%;
-  }
-
-  .form-add-input {
-    width: 50%;
-    margin-right: 0;
-  }
-}
-
-@media (max-width: 395px) {
-  html,
-  body {
-    font-size: 40%;
-  }
-
-  .form-add-input {
-    width: 30%;
-    margin-right: 0;
-  }
+    font-size: 60%;
+  }  
 
   #task-list {
-    height: 30rem;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
+}
+
+@media (max-width: 410px) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 340px) {
+  html,
+  body {
+    
+    font-size: 30%;
+  }
+
+  .header-section
+  {
+    font-size: 12px;
+  }
+
+  .form-submit-btn{
+    font-size: 50%;
+  }
+
+  .navbar ul{
+    color:red;
+  }
+
+  .task-container{
+    font-size: 1.5em;
   }
 }
