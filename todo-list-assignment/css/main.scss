@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 //color palette
 $colors: (
@@ -151,6 +151,12 @@ body {
   #task-list {
     overflow: hidden;
     overflow-y: auto;
+
+    .task:last-child {
+      .divider {
+        display: none;
+      }
+    }
   }
 
   // for one single task row

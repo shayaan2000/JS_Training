@@ -1,42 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shayaan</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shayaan</title>
+    <link
+      href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script defer src="src/script.js"></script>
+  </head>
 
-  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css" />
-  <script defer src="src/script.js"></script>
-</head>
+  <body>
+    <div class="app-container">
+      <div class="main-container">
+        <section class="header-section">
+          <div class="form-container">
+            <h1 class="date">...</h1>
+            <p class="num-active">...</p>
+            <form class="add-task-form">
+              <input
+                required
+                type="text"
+                name="task-title-input"
+                id="task-title-input"
+                class="form-add-input"
+              />
+              <button
+                type="submit"
+                id="form-submit-btn"
+                class="form-submit-btn"
+              >
+                Add Task
+              </button>
+            </form>
+          </div>
+          <nav class="navbar">
+            <li id="nav-incomplete" class="nav-item active">
+              Incomplete Tasks
+            </li>
+            <li id="nav-complete" class="nav-item">Completed Tasks</li>
+          </nav>
+        </section>
 
-<body>
-  <div class="app-container">
-    <div class="main-container">
+        <div class="divider"></div>
 
-      <section class="header-section">
-        <div class="form-container">
-          <h1 class="date">...</h1>
-          <p class="num-active">...</p>
-          <form class="add-task-form">
-            <input required type="text" name="task-title-input" id="task-title-input" class="form-add-input" />
-            <button type="submit" id="form-submit-btn" class="form-submit-btn">Add Task</button>
-          </form>
-        </div>
-        <nav class="navbar">
-          <li id="nav-incomplete" class="nav-item active">Incomplete Tasks</li>
-          <li id="nav-complete" class="nav-item">Completed Tasks</li>
-        </nav>
-      </section>
-
-      <div class="divider"></div>
-
-      <section class="tasks-section">
-        <ul id="task-list">
-          <!-- <li class="task">
+        <section class="tasks-section">
+          <ul id="task-list">
+            <!-- <li class="task">
             <div class="task-container">
               <p class="task-title"><i class="icon-check icon-large task-finish"></i>
                 <span class="incomplete">Do something 123</span>
@@ -55,11 +73,9 @@
             </div>
             <div class=divider></div>
           </li> -->
-        </ul>
-      </section>
-
+          </ul>
+        </section>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

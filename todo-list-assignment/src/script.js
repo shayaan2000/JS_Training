@@ -21,50 +21,62 @@ const dateOptions = {
 
 // Data
 let listOfTasks = [];
-let currentPage = 0;
 let idCount = 0;
 
+// Set predefined tabs, this approach will help in react
+const tabs = [
+  {
+    id: 0,
+    title: 'Complete Tasks',
+  },
+  {
+    id: 1,
+    title: 'Incomplete Tasks',
+  }
+]
+
 // Creates the HTML for a given task
-const generateTaskMarkup = function (task, id) {
-  const completed = task.completed;
-  return `
+const generateTaskMarkup = ({ title, completed, id }) => (`
   <li class="task" data-id="${id}">
     <div class="task-container">
       <p class="task-title"><i class="icon-${completed ? "undo" : "check"} icon-large task-${completed ? "revert" : "finish"}"></i>
-        <span class="${completed ? "complete" : "incomplete"}">${task.title}</span>
+        <span class="${completed ? "complete" : "incomplete"}">${title}</span>
       </p>  
       <i class="icon-trash icon-large task-delete"></i>
     </div>  
-    <div class="divider ${taskIsLastType(task) ? "last" : ""}"></div>
+    <div class="divider"></div>
   </li>  
-  `
-}
+`);
 
-const selectTab = (completedFlag = false) => {
+// Use a tab based approach incase you want to add more tabs down the line
+const selectTab = (tab) => {
   [navComplete, navIncomplete].forEach((navItem) => navItem.classList.remove("active"));
-  completedFlag ? navComplete.classList.add("active") : navIncomplete.classList.add("active")
-  completedFlag ? currentPage = 1 : currentPage = 0;
-  displayTasks(completedFlag);
+  switch (tab.id) {
+    case 0:
+      renderIncompleteTasks();
+      navIncomplete.classList.add("active")
+      break;
+    case 1:
+      renderCompletedTasks();
+      navComplete.classList.add("active")
+      break;
+  }
+  attachEventListeners();
 }
 
-// Display Tasks
-const displayTasks = (completedFlag = false) => {
-  // rendering
-  taskListContainer.innerHTML = '';
-  const taskListHTML = listOfTasks.map((task, i) => {
-    // only returning if completed status matches required
-    if (task.completed === completedFlag) {
-      return (generateTaskMarkup(task, task.id))
-    }
-  }).join("");
-  taskListContainer.innerHTML = taskListHTML
+// seperate render functions for each tab ensure clarity
+const renderCompletedTasks = () => {
+  const taskListHTML = listOfTasks.filter(({ completed }) => completed).map(generateTaskMarkup).join("");
+  taskListContainer.innerHTML = taskListHTML;
+}
 
-  attachEventListeners();
-  updateActiveTaskHeading();
+const renderIncompleteTasks = () => {
+  const taskListHTML = listOfTasks.filter(({ completed }) => !completed).map(generateTaskMarkup).join("");
+  taskListContainer.innerHTML = taskListHTML;
 }
 
 // attach event listeners on new elements
-const attachEventListeners = ()=>{
+const attachEventListeners = () => {
   for (const icon of deleteIcons) {
     icon.addEventListener("click", handleDelete)
   }
@@ -84,7 +96,7 @@ const handleDelete = (e) => {
   if (!elementToBeRemoved) return;
 
   const taskId = elementToBeRemoved.dataset.id;
-  const taskPos = listOfTasks.map((task) => task.id).indexOf(+taskId);
+  const taskPos = listOfTasks.map(({ id }) => id).indexOf(+taskId);
 
   listOfTasks.splice(taskPos, 1);
   elementToBeRemoved.remove();
@@ -99,7 +111,7 @@ const handleChangeInStatus = (e) => {
 
   if (!elementToBeShifted) return;
   const taskId = elementToBeShifted.dataset.id;
-  const taskPos = listOfTasks.map((task) => task.id).indexOf(+taskId);
+  const taskPos = listOfTasks.map(({ id }) => id).indexOf(+taskId);
   listOfTasks[taskPos].completed = !listOfTasks[taskPos].completed;
   elementToBeShifted.remove();
 
@@ -115,41 +127,25 @@ const handleAddFormSubmit = (e) => {
   const newTask = { id: idCount, title: taskTitle, date: new Date(), completed: false }
   idCount++;
   listOfTasks.push(newTask);
-  selectTab(false);
-
-  updateActiveTaskHeading();
+  selectTab(tabs[0]);
   persistTasks();
 }
 
 
 const persistTasks = () => {
   localStorage.setItem("tasks", JSON.stringify(listOfTasks));
-  localStorage.setItem("id-count", JSON.stringify(idCount));
+  localStorage.setItem("id-count", idCount);
 }
 
 // // Event Listeners
-navComplete.addEventListener("click", (e) => selectTab(true));
-navIncomplete.addEventListener("click", (e) => selectTab(false));
+navIncomplete.addEventListener("click", (e) => selectTab(tabs[0]));
+navComplete.addEventListener("click", (e) => selectTab(tabs[1]));
 addTaskForm.addEventListener("submit", handleAddFormSubmit)
 
 // setting "x Active Tasks"
 const updateActiveTaskHeading = () => {
-  numberOfActiveEl.textContent = `${listOfTasks.filter((task) => task.completed === false).length} active tasks`
-}
-
-
-const taskIsLastType= (task)=>{
-  const status = task.completed;
-  
-  if(listOfTasks.length===0) return false;
-  for(let i=listOfTasks.length-1; i>=0;i--)
-  {
-    if(listOfTasks[i].completed===status)
-    {
-      return listOfTasks[i].id === task.id ? true: false;
-    }  
-  }
-  return false;
+  const incompleteTasks = listOfTasks.filter(({ completed }) => !completed).length
+  numberOfActiveEl.textContent = `${incompleteTasks} active tasks`
 }
 
 // initialization
@@ -157,16 +153,15 @@ const init = function () {
 
   // retrieving from local storage
   const storageTasks = localStorage.getItem("tasks");
-  if (storageTasks) listOfTasks = JSON.parse(storageTasks);
+  listOfTasks = storageTasks ? JSON.parse(storageTasks) : [];
 
   const storageID = localStorage.getItem("id-count");
-  if (storageID) idCount = JSON.parse(storageID);
+  idCount = storageID ? JSON.parse(storageID) : 0;
 
   // setting data
   dateEl.textContent = (new Intl.DateTimeFormat(navigator.loacation, dateOptions).format(new Date()));
-  selectTab(false);
-  updateActiveTaskHeading();
-
+  selectTab(tabs[0]);
+  updateActiveTaskHeading()
 };
 
 init();
