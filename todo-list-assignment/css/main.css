@@ -235,8 +235,38 @@ body {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  nav {
+  .header-section nav {
     margin-top: 2rem;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .header-section .form-container {
+    width: 100%;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+  }
+  .header-section .form-container .add-task-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+  }
+  .header-section .form-container .add-task-form #task-title-input {
+    -webkit-box-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
+  }
+  .header-section .form-container .add-task-form #form-submit-btn {
+    font-size: 1.2rem;
+  }
+  .header-section .form-container h1 {
+    font-size: 1.7rem;
+  }
+  .header-section .form-container p {
+    font-size: 1.5rem;
   }
   #task-list {
     max-height: 45rem;
@@ -264,6 +294,12 @@ body {
     font-size: 110%;
     max-height: 60rem;
   }
+  .header-section .form-container h1 {
+    font-size: 1.8rem;
+  }
+  .header-section .form-container p {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 340px) {
@@ -271,11 +307,17 @@ body {
   body {
     font-size: 30%;
   }
-  .header-section {
+  nav {
     font-size: 12px;
   }
-  .form-submit-btn {
-    font-size: 50%;
+  .header-section .form-container h1 {
+    font-size: 3rem;
+  }
+  .header-section .form-container p {
+    font-size: 2.2rem;
+  }
+  .header-section .form-container .add-task-form #form-submit-btn {
+    font-size: 2rem;
   }
   .task-container {
     font-size: 1.5em;

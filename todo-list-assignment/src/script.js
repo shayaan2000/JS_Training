@@ -40,21 +40,6 @@ const generateTaskMarkup = function (task, id) {
   `
 }
 
-const taskIsLastType= (task)=>{
-  const status = task.completed;
-  
-  if(listOfTasks.length===0) return false;
-  for(let i=listOfTasks.length-1; i>=0;i--)
-  {
-    if(listOfTasks[i].completed===status)
-    {
-      return listOfTasks[i].id === task.id ? true: false;
-    }  
-  }
-
-  return false;
-}
-
 const selectTab = (completedFlag = false) => {
   [navComplete, navIncomplete].forEach((navItem) => navItem.classList.remove("active"));
   completedFlag ? navComplete.classList.add("active") : navIncomplete.classList.add("active")
@@ -79,7 +64,7 @@ const displayTasks = (completedFlag = false) => {
 }
 
 // attach event listeners on new elements
-const attachEventListeners = function () {
+const attachEventListeners = ()=>{
   for (const icon of deleteIcons) {
     icon.addEventListener("click", handleDelete)
   }
@@ -150,6 +135,21 @@ addTaskForm.addEventListener("submit", handleAddFormSubmit)
 // setting "x Active Tasks"
 const updateActiveTaskHeading = () => {
   numberOfActiveEl.textContent = `${listOfTasks.filter((task) => task.completed === false).length} active tasks`
+}
+
+
+const taskIsLastType= (task)=>{
+  const status = task.completed;
+  
+  if(listOfTasks.length===0) return false;
+  for(let i=listOfTasks.length-1; i>=0;i--)
+  {
+    if(listOfTasks[i].completed===status)
+    {
+      return listOfTasks[i].id === task.id ? true: false;
+    }  
+  }
+  return false;
 }
 
 // initialization

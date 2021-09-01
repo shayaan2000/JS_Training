@@ -191,7 +191,7 @@ body {
   }
 }
 
-// Media queries
+//===Media queries===
 @media (min-width: 800px) {
   #task-list {
     overflow: hidden;
@@ -205,9 +205,7 @@ body {
   body {
     font-size: 60%;
   }
-
-  //fixing
-
+  // making main container full size
   .main-container {
     height: 100%;
     width: 100%;
@@ -218,10 +216,35 @@ body {
 
   .header-section {
     flex-direction: column;
-  }
 
-  nav {
-    margin-top: 2rem;
+    // center aligning nav tabs
+    nav {
+      margin-top: 2rem;
+      justify-content: space-around;
+    }
+
+    // making form field cover full width
+    .form-container {
+      width: 100%;
+      align-items: stretch;
+      .add-task-form {
+        display: flex;
+        align-items: stretch;
+        #task-title-input {
+          flex: 2;
+        }
+        #form-submit-btn {
+          font-size: 1.2rem;
+        }
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+      p {
+        font-size: 1.5rem;
+      }
+    }
   }
 
   #task-list {
@@ -252,6 +275,15 @@ body {
     font-size: 110%;
     max-height: 60rem;
   }
+
+  .header-section .form-container {
+    h1 {
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 @media (max-width: 340px) {
@@ -260,12 +292,23 @@ body {
     font-size: 30%;
   }
 
-  .header-section {
+  nav {
     font-size: 12px;
   }
 
-  .form-submit-btn {
-    font-size: 50%;
+  .header-section .form-container {
+    h1 {
+      font-size: 3rem;
+    }
+    p {
+      font-size: 2.2rem;
+    }
+
+    .add-task-form {
+      #form-submit-btn {
+        font-size: 2rem;
+      }
+    }
   }
 
   .task-container {
