@@ -28,6 +28,7 @@ $colors: (
 
 html,
 body {
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
   font-size: 62.5%;
@@ -42,6 +43,7 @@ body {
   background: getColor(_primary);
   width: 100%;
   height: 100%;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,7 +100,6 @@ body {
       border: none;
       border-radius: 3px;
 
-      
       &:hover {
         cursor: pointer;
       }
@@ -132,7 +133,10 @@ body {
   width: 100%;
   background: getColor(_grey-light);
   margin: 3rem 0;
-  
+}
+
+.last {
+  background: getColor(_grey-dark);
 }
 
 .tasks-section {
@@ -187,11 +191,8 @@ body {
   }
 }
 
-
-
 // Media queries
 @media (min-width: 800px) {
-  
   #task-list {
     overflow: hidden;
     overflow-y: auto;
@@ -206,17 +207,25 @@ body {
   }
 
   //fixing
-  .main-container{
+
+  .main-container {
     height: 100%;
     width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
 
-  .header-section{
+  .header-section {
     flex-direction: column;
   }
 
-  nav{
+  nav {
     margin-top: 2rem;
+  }
+
+  #task-list {
+    max-height: 45rem;
   }
 }
 
@@ -224,12 +233,10 @@ body {
   html,
   body {
     font-size: 60%;
-  }  
+  }
 
   #task-list {
-    overflow: hidden;
-    overflow-y: auto;
-    height: 100%;
+    max-height: 80rem;
   }
 }
 
@@ -240,29 +247,45 @@ body {
     width: 100%;
     font-size: 50%;
   }
+
+  #task-list {
+    font-size: 110%;
+    max-height: 60rem;
+  }
 }
 
 @media (max-width: 340px) {
   html,
   body {
-    
     font-size: 30%;
   }
 
-  .header-section
-  {
+  .header-section {
     font-size: 12px;
   }
 
-  .form-submit-btn{
+  .form-submit-btn {
     font-size: 50%;
   }
 
-  .navbar ul{
-    color:red;
+  .task-container {
+    font-size: 1.5em;
   }
 
-  .task-container{
-    font-size: 1.5em;
+  #task-list {
+    font-size: 110%;
+    max-height: 110rem;
+  }
+
+  #nav-incomplete,
+  #nav-complete {
+    font-size: 100%;
+  }
+}
+
+// height
+@media (max-height: 825px) {
+  #task-list {
+    max-height: 400px;
   }
 }

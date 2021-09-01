@@ -35,11 +35,25 @@ const generateTaskMarkup = function (task, id) {
       </p>  
       <i class="icon-trash icon-large task-delete"></i>
     </div>  
-    <div class=divider></div>
+    <div class="divider ${taskIsLastType(task) ? "last" : ""}"></div>
   </li>  
   `
 }
 
+const taskIsLastType= (task)=>{
+  const status = task.completed;
+  
+  if(listOfTasks.length===0) return false;
+  for(let i=listOfTasks.length-1; i>=0;i--)
+  {
+    if(listOfTasks[i].completed===status)
+    {
+      return listOfTasks[i].id === task.id ? true: false;
+    }  
+  }
+
+  return false;
+}
 
 const selectTab = (completedFlag = false) => {
   [navComplete, navIncomplete].forEach((navItem) => navItem.classList.remove("active"));
@@ -53,12 +67,11 @@ const displayTasks = (completedFlag = false) => {
   // rendering
   taskListContainer.innerHTML = '';
   const taskListHTML = listOfTasks.map((task, i) => {
-
     // only returning if completed status matches required
     if (task.completed === completedFlag) {
       return (generateTaskMarkup(task, task.id))
     }
-  }).join('');
+  }).join("");
   taskListContainer.innerHTML = taskListHTML
 
   attachEventListeners();
@@ -84,9 +97,6 @@ const handleDelete = (e) => {
   const elementToBeRemoved = e.target.closest(".task");
 
   if (!elementToBeRemoved) return;
-
-  console.log(elementToBeRemoved.dataset.id);
-  console.log(elementToBeRemoved);
 
   const taskId = elementToBeRemoved.dataset.id;
   const taskPos = listOfTasks.map((task) => task.id).indexOf(+taskId);
@@ -120,7 +130,6 @@ const handleAddFormSubmit = (e) => {
   const newTask = { id: idCount, title: taskTitle, date: new Date(), completed: false }
   idCount++;
   listOfTasks.push(newTask);
-  console.log(listOfTasks);
   selectTab(false);
 
   updateActiveTaskHeading();
