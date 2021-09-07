@@ -1,7 +1,9 @@
 # Todo List 
 
 ## Description
-This project is a todo list front-end application that lets the users:
+This project is a todo list responsive front-end application that has been developed using HTML, Sass, and JavaScript. 
+
+In this app, the user is able to:
 - Add tasks.
 - Delete tasks.
 - Mark tasks as completed.
@@ -9,10 +11,7 @@ This project is a todo list front-end application that lets the users:
 - Keep the tasks saved even after the app is closed.
 
 ## Requirements
-The app is developed using the following:
-- [HTML](https://devdocs.io/html-attributes/)
-- [Sass](https://sass-lang.com/guide)
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [NodeJs v14](https://nodejs.org/en/download)
 
 ## Running the App
 The process of trying out the application is really simple: 
@@ -34,7 +33,9 @@ To setup the project:
 1. Clone this repository and navigate to todo-list-assignment/ in your favorite editor
 
 2. Only thing left now is setting up Sass. There are two ways you can do it:
-  -   Install a plugin like Watch Sass in your editor. This will let you compile sass code without going through installations.
-  -   Use a package manager such as npm to install it. Refer to [this link](https://sass-lang.com/install) for more details on sass installation. 
-
+    1. Install a plugin like 'Watch Sass' in your editor. This will let you compile Sass code without going through installations.
+    2. Use a package manager such as npm to install it. Refer to [this link](https://sass-lang.com/install) for more details on sass installation. 
+  <br>```npm install -g sass``` 
+      <br><br>You can then compile the sass using the followinging command: <br>```sass --watch main.scss main.css```
+   
 3. You are good to go !
